@@ -15,15 +15,9 @@ class PRG:
 
     def __init__(self, seed):
         self.r = seed[32:]
-        """
-        print(len(self.r))
-        print(self.r)
-        """
+
         self.x = seed[:32]
-        """
-        print(len(self.x))
-        print(self.x)
-        """
+
         self.f = OWP
 
     # TODO: Return the inner product between self.r and self.x, and update self.x using self.f
@@ -64,8 +58,6 @@ class PRG:
                 begin=begin+"0"
             x = begin + x
 
-        #print(len(x))
-        #print(len(y))
         list=[]
 
         for i in range(0,len(x)):
@@ -112,37 +104,18 @@ def double_length(seed):
         list.append(str(computedbit))
         flag = flag + 1
 
-    #print(list)
     finallist = ''.join([(elem) for elem in list])
-    #print(len(finallist))
-    #print(finallist)
     result = int(finallist, 2)
-    #print(result)
-    # value = bitstring_to_bytes(finallist)
-    # print((value))
 
     finallyans = result.to_bytes(128, byteorder='little')
-    #print(len(finallyans))
-    #print("MY ANS:"+str(finallyans))
 
     return finallyans
 
 
 if __name__ == '__main__':
     with open("64bytes", "rb") as fp:
-        seed = fp.read()
-        #print("SEED: "+ str(seed))
-        #print(len(seed))
-
-
 
     with open("128bytes", "rb") as fp:
         result = fp.read()
-        #print("Expected: "+str(result))
-        """
-        print(len(result))
-        print("00"+bin(int.from_bytes(result,"little"))[2:])
-        print(len("00"+bin(int.from_bytes(result, "little"))[2:]))
-        """
 
     assert double_length(seed) == result
